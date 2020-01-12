@@ -9,6 +9,11 @@
 // @match        *://*.grid.id/*
 // @match        *://*.kompas.com/*
 // @match        *://*.detik.com/*
+// @match        *://*.kontan.co.id/*
+// @match        *://*.kompasiana.com/*
+// @match        *://*.motorplus-online.com/*
+// @match        *://*.gridoto.com/*
+// @match        *://*.suara.com/*
 // @run-at       document-start
 // ==/UserScript==
 
@@ -42,4 +47,43 @@ if (urlName.indexOf("tribun") != -1) {
     var newPath4 = oldPath4 + "?single=1";
     window.location.replace(newPath4);
 	}
+} else if (urlName.indexOf("kontan") != -1) {
+    if (urlName.indexOf("?page=all") != -1) return false;
+    var oldPath5 = window.location.pathname;
+    if (!/\?page=all$/.test(oldPath5)) {
+    var newPath5 = oldPath5 + "?page=all";
+    window.location.replace(newPath5);
+    }
+}
+} else if (urlName.indexOf("kompasiana") != -1) {
+    if (urlName.indexOf("?page=all") != -1) return false;
+    var oldPath6 = window.location.pathname;
+    if (!/\?page=all$/.test(oldPath6)) {
+    var newPath6 = oldPath6 + "?page=all";
+    window.location.replace(newPath6);
+    }
+}
+} else if (urlName.indexOf("motorplus-online") != -1) {
+    if (urlName.indexOf("?page=all") != -1) return false;
+    var oldPath7 = window.location.pathname;
+    if (!/\?page=all$/.test(oldPath7)) {
+    var newPath7 = oldPath7 + "?page=all";
+    window.location.replace(newPath7);
+    }
+}
+} else if (urlName.indexOf("gridoto") != -1) {
+    if (urlName.indexOf("?page=all") != -1) return false;
+    var oldPath8 = window.location.pathname;
+    if (!/\?page=all$/.test(oldPath8)) {
+    var newPath8 = oldPath8 + "?page=all";
+    window.location.replace(newPath8);
+    }
+}
+} else if (urlName.indexOf("suara") != -1) {
+    if (urlName.indexOf("?page=all") != -1) return false;
+    var oldPath9 = window.location.pathname;
+    if (!/\?page=all$/.test(oldPath9)) {
+    var newPath9 = oldPath9 + "?page=all";
+    window.location.replace(newPath9);
+    }
 }
