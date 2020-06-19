@@ -19,7 +19,7 @@
 
 var urlName = window.location.href.toString()
 
-if (urlName.indexOf("tribun") != -1) {
+if (urlName.indexOf("tribunnews") != -1) {
     if (urlName.indexOf("?page=all") != -1) return false;
     var oldPath = window.location.pathname;
     if (!/\?page=all$/.test(oldPath)) {
@@ -54,7 +54,6 @@ if (urlName.indexOf("tribun") != -1) {
     var newPath5 = oldPath5 + "?page=all";
     window.location.replace(newPath5);
     }
-}
 } else if (urlName.indexOf("kompasiana") != -1) {
     if (urlName.indexOf("?page=all") != -1) return false;
     var oldPath6 = window.location.pathname;
@@ -62,7 +61,6 @@ if (urlName.indexOf("tribun") != -1) {
     var newPath6 = oldPath6 + "?page=all";
     window.location.replace(newPath6);
     }
-}
 } else if (urlName.indexOf("motorplus-online") != -1) {
     if (urlName.indexOf("?page=all") != -1) return false;
     var oldPath7 = window.location.pathname;
@@ -70,7 +68,6 @@ if (urlName.indexOf("tribun") != -1) {
     var newPath7 = oldPath7 + "?page=all";
     window.location.replace(newPath7);
     }
-}
 } else if (urlName.indexOf("gridoto") != -1) {
     if (urlName.indexOf("?page=all") != -1) return false;
     var oldPath8 = window.location.pathname;
@@ -78,7 +75,6 @@ if (urlName.indexOf("tribun") != -1) {
     var newPath8 = oldPath8 + "?page=all";
     window.location.replace(newPath8);
     }
-}
 } else if (urlName.indexOf("suara") != -1) {
     if (urlName.indexOf("?page=all") != -1) return false;
     var oldPath9 = window.location.pathname;
