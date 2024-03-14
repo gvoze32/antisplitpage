@@ -2,12 +2,10 @@ Change split page mode to show all page.
 
 ### Install
 
-
-
 First you need to install either one of these user-script add-ons for your browser:
 
 * [FireMonkey](https://addons.mozilla.org/en-US/firefox/addon/firemonkey) for Firefox
-* [OrangeMonkey](https://chromewebstore.google.com/detail/orangemonkey/ekmeppjgajofkpiofbebgcbohbmfldaf) for Chrome
+* [ViolentMonkey](https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag) for Chrome
 
 Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/antisplitpage.user.js) to show Install dialog.
 
@@ -22,7 +20,8 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 * Motorplus-online.com
 * Gridoto.com
 * Suara.com
+* Inews.id
 
-Queue:
+Will not be implemented (yet):
 * Jpnn.com
 * Okezone.com
