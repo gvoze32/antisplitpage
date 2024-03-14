@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.5
+// @version      2.6
 // @description  Change split page mode to show all page
 // @author       gvoze32
 // @grant        none
@@ -14,6 +14,7 @@
 // @match        *://*.motorplus-online.com/*
 // @match        *://*.gridoto.com/*
 // @match        *://*.suara.com/*
+// @match        *://*.inews.id/*
 // @run-at       document-start
 // ==/UserScript==
 
@@ -32,7 +33,8 @@
         { host: 'kompasiana', param: '?page=all', articleUrlPattern: /\/\w+\/\d{8}/ },
         { host: 'motorplus-online', param: '?page=all', articleUrlPattern: /\/read\/\d{9}/ },
         { host: 'gridoto', param: '?page=all', articleUrlPattern: /\/read\/\d{9}/ },
-        { host: 'suara', param: '?page=all', articleUrlPattern: /\/\w+\/\d{4}\/\d{2}\/\d{2}/ }
+        { host: 'suara', param: '?page=all', articleUrlPattern: /\/\w+\/\d{4}\/\d{2}\/\d{2}/ },
+        { host: 'inews', param: '/all', articleUrlPattern: /\/\w+\/\w+/ }
     ];
 
     const site = sites.find(site => urlName.includes(site.host) && site.articleUrlPattern.test(urlPathname));
