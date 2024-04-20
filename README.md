@@ -21,7 +21,7 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 * Gridoto.com
 * Suara.com
 * Inews.id
-* viva.co.id
+* Viva.co.id
 * Jawapos.com
 * Jagodangdut.com
 * Sahijab.com
