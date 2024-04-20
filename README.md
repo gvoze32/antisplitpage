@@ -21,7 +21,17 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 * Gridoto.com
 * Suara.com
 * Inews.id
+* viva.co.id
+* Jawapos.com
+* Jagodangdut.com
+* Sahijab.com
+* 100kpj.com
 
 Will not be implemented (yet):
 * Jpnn.com
 * Okezone.com
+* Mojok.co
+
+No page split (for now):
+* Tempo.co
+* Cnnindonesia.com
