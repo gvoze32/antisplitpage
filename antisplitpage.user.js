@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.6
+// @version      2.7
 // @description  Change split page mode to show all page
 // @author       gvoze32
 // @grant        none
@@ -15,6 +15,11 @@
 // @match        *://*.gridoto.com/*
 // @match        *://*.suara.com/*
 // @match        *://*.inews.id/*
+// @match        *://*.viva.co.id/*
+// @match        *://*.jawapos.com/*
+// @match        *://*.jagodangdut.com/*
+// @match        *://*.sahijab.com/*
+// @match        *://*.100kpj.com/*
 // @run-at       document-start
 // ==/UserScript==
 
@@ -34,7 +39,12 @@
         { host: 'motorplus-online', param: '?page=all', articleUrlPattern: /\/read\/\d{9}/ },
         { host: 'gridoto', param: '?page=all', articleUrlPattern: /\/read\/\d{9}/ },
         { host: 'suara', param: '?page=all', articleUrlPattern: /\/\w+\/\d{4}\/\d{2}\/\d{2}/ },
-        { host: 'inews', param: '/all', articleUrlPattern: /\/\w+\/\w+/ }
+        { host: 'inews', param: '/all', articleUrlPattern: /\/\w+\/\w+/ },
+        { host: 'viva', param: '?page=all', articleUrlPattern: /\/\w+\/\d+/ },
+      	{ host: 'jawapos', param: '?page=all', articleUrlPattern: /\/\d+\//},
+      	{ host: 'jagodangdut', param: '?page=all', articleUrlPattern: /\/\w+\/\d+/},
+      	{ host: 'sahijab', param: '?page=all', articleUrlPattern: /\/\w+\/\d+/},
+      	{ host: '100kpj', param: '?page=all', articleUrlPattern: /\/\w+\/\d+/}
     ];
 
     const site = sites.find(site => urlName.includes(site.host) && site.articleUrlPattern.test(urlPathname));
