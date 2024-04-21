@@ -1,9 +1,13 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.7
+// @version      2.7.1
 // @description  Change split page mode to show all page
 // @author       gvoze32
+// @homepageURL  https://github.com/gvoze32/antisplitpage
+// @supportURL   https://github.com/gvoze32/antisplitpage/issues
+// @icon         https://cdn-icons-png.flaticon.com/512/6455/6455714.png
+// @run-at       document-start
 // @grant        none
 // @match        *://*.tribunnews.com/*
 // @match        *://*.grid.id/*
@@ -20,7 +24,6 @@
 // @match        *://*.jagodangdut.com/*
 // @match        *://*.sahijab.com/*
 // @match        *://*.100kpj.com/*
-// @run-at       document-start
 // ==/UserScript==
 
 (function() {
