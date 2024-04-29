@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.7.3
+// @version      2.7.4
 // @description  Change split page mode to show all page
 // @author       gvoze32
 // @homepageURL  https://github.com/gvoze32/antisplitpage
@@ -28,6 +28,7 @@
 // @match        *://*.bolasport.com/*
 // @match        *://*.jpnn.com/*
 // @match        *://*.okezone.com/*
+// @match        *://*.mojok.co/*
 // ==/UserScript==
 
 (function() {
@@ -69,17 +70,26 @@
     let articleBodySelector = '';
     let removeSelectors = '';
     let removeElements = '';
+    let mode = 1;
 
     if (urlName.includes('jpnn.com')) {
         console.log('URL mengandung jpnn.com');
         articleBodySelector = 'div[itemprop="articleBody"]';
         removeSelectors = '.baca-juga';
         removeElements = '.pagination'
+        mode = 1;
     } else if (urlName.includes('okezone.com')) {
         console.log('URL mengandung okezone.com');
         articleBodySelector = 'div[itemprop="articleBody"]';
         removeSelectors = '#bacajuga';
         removeElements = '#rctiplus, .box-gnews, .paging, .detads-bottom, .detail-tag, .video-wrap, .iframe-banner, p[style="font-weight:bold;text-align:center;"]'
+        mode = 1;
+    } else if (urlName.includes('mojok.co')) {
+        console.log('URL mengandung mojok.co');
+        articleBodySelector = '.content-inner';
+        removeSelectors = '.jnews_inline_related_post_wrapper, .jnews_inline_related_post, .jeg_post_tags, .post-modified-info, p:has(a[href*="/2"])';
+        removeElements = '.jeg_pagelinks, .jeg_pagination, .jeg_pagenav_1, .jeg_alignleft, .no_navtext'
+        mode = 2;
     } else {
         console.log('Situs tidak didukung');
     }
@@ -101,18 +111,29 @@
       let pageUrls = [];
       let currentPage = 1;
 
-      while (true) {
-        let url = currentUrl;
-        if (currentPage > 1) {
-          url += `?page=${currentPage}`;
-        }
-        pageUrls.push(url);
-        currentPage++;
+      let nextPageLink;
 
-        let nextPageLink = $(`a[href*="?page=${currentPage}"]`);
-        if (nextPageLink.length === 0) {
-          break;
-        }
+      while (true) {
+          let url = currentUrl;
+          if (currentPage > 1) {
+              if (mode == 1) {
+                  url += `?page=${currentPage}`;
+              } else if (mode == 2) {
+                  url += `${currentPage}/`;
+              }
+          }
+          pageUrls.push(url);
+          currentPage++;
+
+          if (mode == 1) {
+              nextPageLink = $(`a[href*="?page=${currentPage}"]`);
+          } else if (mode == 2) {
+              nextPageLink = $(`a[href*="/${currentPage}/"]`);
+          }
+
+          if (!nextPageLink || nextPageLink.length === 0) {
+              break;
+          }
       }
 
       Promise.all(pageUrls.map(url => getArticleBody(url)))
