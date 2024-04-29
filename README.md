@@ -28,6 +28,7 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 * 100kpj.com
 * Tvonenews.com
 * Bolasport.com
+
 Implemented using merge-article method:
 * Jpnn.com
 

@@ -8,7 +8,6 @@
 // @supportURL   https://github.com/gvoze32/antisplitpage/issues
 // @icon         https://cdn-icons-png.flaticon.com/512/6455/6455714.png
 // @require      https://code.jquery.com/jquery-3.6.0.min.js
-// @run-at       document-start
 // @grant        none
 // @match        *://*.tribunnews.com/*
 // @match        *://*.grid.id/*
@@ -79,34 +78,34 @@
         });
       }
 
-      let currentUrl = window.location.href;
-      if (urlName.includes('jpnn.com') && $('div[itemprop="articleBody"]').length > 0) {
-        console.log('URL mengandung jpnn.com');
-        console.log('Elemen articleBody ditemukan');
-        let pageUrls = [];
-        let currentPage = 1;
-    
-        while (true) {
-          let url = currentUrl;
-          if (currentPage > 1) {
-            url += `?page=${currentPage}`;
-          }
-          pageUrls.push(url);
-          currentPage++;
-    
-          let nextPageLink = $(`a[href*="?page=${currentPage}"]`);
-          if (nextPageLink.length === 0) {
-            break;
-          }
+    let currentUrl = window.location.href;
+    if (urlName.includes('jpnn.com') && $('div[itemprop="articleBody"]').length > 0) {
+      console.log('URL mengandung jpnn.com');
+      console.log('Element articleBody ditemukan');
+      let pageUrls = [];
+      let currentPage = 1;
+  
+      while (true) {
+        let url = currentUrl;
+        if (currentPage > 1) {
+          url += `?page=${currentPage}`;
         }
-    
-        Promise.all(pageUrls.map(url => getArticleBody(url)))
-          .then(articleBodies => {
-            const combinedBody = articleBodies.join('<br><br>');
-            const $articleContainer = $('div[itemprop="articleBody"]');
-            $articleContainer.html(combinedBody);
-            $('.pagination').remove();
-          })
-          .catch(error => console.error(error));
+        pageUrls.push(url);
+        currentPage++;
+  
+        let nextPageLink = $(`a[href*="?page=${currentPage}"]`);
+        if (nextPageLink.length === 0) {
+          break;
+        }
       }
+  
+      Promise.all(pageUrls.map(url => getArticleBody(url)))
+        .then(articleBodies => {
+          const combinedBody = articleBodies.join('<br><br>');
+          const $articleContainer = $('div[itemprop="articleBody"]');
+          $articleContainer.html(combinedBody);
+          $('.pagination').remove();
+        })
+        .catch(error => console.error(error));
+    }
 })();
