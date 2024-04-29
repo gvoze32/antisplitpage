@@ -27,6 +27,7 @@
 // @match        *://*.tvonenews.com/*
 // @match        *://*.bolasport.com/*
 // @match        *://*.jpnn.com/*
+// @match        *://*.okezone.com/*
 // ==/UserScript==
 
 (function() {
@@ -64,12 +65,30 @@
     }
 
     // USING METHOD 2
-    // START JPNN.COM
+    let currentUrl = window.location.href;
+    let articleBodySelector = '';
+    let removeSelectors = '';
+    let removeElements = '';
+
+    if (urlName.includes('jpnn.com')) {
+        console.log('URL mengandung jpnn.com');
+        articleBodySelector = 'div[itemprop="articleBody"]';
+        removeSelectors = '.baca-juga';
+        removeElements = '.pagination'
+    } else if (urlName.includes('okezone.com')) {
+        console.log('URL mengandung okezone.com');
+        articleBodySelector = 'div[itemprop="articleBody"]';
+        removeSelectors = '#bacajuga';
+        removeElements = '#rctiplus, .box-gnews, .paging, .detads-bottom, .detail-tag, .video-wrap, .iframe-banner, p[style="font-weight:bold;text-align:center;"]'
+    } else {
+        console.log('Situs tidak didukung');
+    }
+
     function getArticleBody(url) {
         return new Promise((resolve, reject) => {
           $.get(url, function(data) {
-            let $articleBody = $(data).find('div[itemprop="articleBody"]');
-            $articleBody.find('.baca-juga').remove();
+            let $articleBody = $(data).find(articleBodySelector);
+            $articleBody.find(removeSelectors).remove();
             let articleBody = $articleBody.html();
             resolve(articleBody);
           }).fail(function() {
@@ -78,13 +97,10 @@
         });
       }
 
-    let currentUrl = window.location.href;
-    if (urlName.includes('jpnn.com') && $('div[itemprop="articleBody"]').length > 0) {
-      console.log('URL mengandung jpnn.com');
-      console.log('Element articleBody ditemukan');
+    if ($(articleBodySelector).length > 0) {
       let pageUrls = [];
       let currentPage = 1;
-  
+
       while (true) {
         let url = currentUrl;
         if (currentPage > 1) {
@@ -92,19 +108,19 @@
         }
         pageUrls.push(url);
         currentPage++;
-  
+
         let nextPageLink = $(`a[href*="?page=${currentPage}"]`);
         if (nextPageLink.length === 0) {
           break;
         }
       }
-  
+
       Promise.all(pageUrls.map(url => getArticleBody(url)))
         .then(articleBodies => {
           const combinedBody = articleBodies.join('<br><br>');
-          const $articleContainer = $('div[itemprop="articleBody"]');
+          const $articleContainer = $(articleBodySelector);
           $articleContainer.html(combinedBody);
-          $('.pagination').remove();
+          $(removeElements).remove();
         })
         .catch(error => console.error(error));
     }
