@@ -26,12 +26,17 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 * Jagodangdut.com
 * Sahijab.com
 * 100kpj.com
+* Tvonenews.com
+* Bolasport.com
 
 Will not be implemented (yet):
 * Jpnn.com
 * Okezone.com
 * Mojok.co
+* Disway.id
 
 No page split (for now):
 * Tempo.co
 * Cnnindonesia.com
+* Bisnis.com
+* Medcom.id
