@@ -7,6 +7,7 @@
 // @homepageURL  https://github.com/gvoze32/antisplitpage
 // @supportURL   https://github.com/gvoze32/antisplitpage/issues
 // @icon         https://cdn-icons-png.flaticon.com/512/6455/6455714.png
+// @require      https://code.jquery.com/jquery-3.6.0.min.js
 // @run-at       document-start
 // @grant        none
 // @match        *://*.tribunnews.com/*
@@ -81,7 +82,7 @@
       let currentUrl = window.location.href;
       if (urlName.includes('jpnn.com') && $('div[itemprop="articleBody"]').length > 0) {
         console.log('URL mengandung jpnn.com');
-        console.log('Elemen div[itemprop="articleBody"] ditemukan');
+        console.log('Elemen articleBody ditemukan');
         let pageUrls = [];
         let currentPage = 1;
     
