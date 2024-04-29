@@ -32,9 +32,9 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 Implemented using merge-article method:
 * Jpnn.com
 * Okezone.com
+* Mojok.co
 
 To be implemented (merge-article method required):
-* Mojok.co
 * Disway.id
 * Genpi.co
 
