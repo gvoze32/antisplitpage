@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.7.2
+// @version      2.7.3
 // @description  Change split page mode to show all page
 // @author       gvoze32
 // @homepageURL  https://github.com/gvoze32/antisplitpage
@@ -26,11 +26,13 @@
 // @match        *://*.100kpj.com/*
 // @match        *://*.tvonenews.com/*
 // @match        *://*.bolasport.com/*
+// @match        *://*.jpnn.com/*
 // ==/UserScript==
 
 (function() {
     'use strict';
 
+    // USING METHOD 1
     const urlName = window.location.href.toString();
     const urlPathname = window.location.pathname;
 
@@ -60,4 +62,50 @@
         const desiredUrl = `${urlPathname}${site.param}`;
         window.location.replace(desiredUrl);
     }
+
+    // USING METHOD 2
+    // START JPNN.COM
+    function getArticleBody(url) {
+        return new Promise((resolve, reject) => {
+          $.get(url, function(data) {
+            let $articleBody = $(data).find('div[itemprop="articleBody"]');
+            $articleBody.find('.baca-juga').remove();
+            let articleBody = $articleBody.html();
+            resolve(articleBody);
+          }).fail(function() {
+            reject('Error mengambil article body');
+          });
+        });
+      }
+
+      let currentUrl = window.location.href;
+      if (urlName.includes('jpnn.com') && $('div[itemprop="articleBody"]').length > 0) {
+        console.log('URL mengandung jpnn.com');
+        console.log('Elemen div[itemprop="articleBody"] ditemukan');
+        let pageUrls = [];
+        let currentPage = 1;
+    
+        while (true) {
+          let url = currentUrl;
+          if (currentPage > 1) {
+            url += `?page=${currentPage}`;
+          }
+          pageUrls.push(url);
+          currentPage++;
+    
+          let nextPageLink = $(`a[href*="?page=${currentPage}"]`);
+          if (nextPageLink.length === 0) {
+            break;
+          }
+        }
+    
+        Promise.all(pageUrls.map(url => getArticleBody(url)))
+          .then(articleBodies => {
+            const combinedBody = articleBodies.join('<br><br>');
+            const $articleContainer = $('div[itemprop="articleBody"]');
+            $articleContainer.html(combinedBody);
+            $('.pagination').remove();
+          })
+          .catch(error => console.error(error));
+      }
 })();

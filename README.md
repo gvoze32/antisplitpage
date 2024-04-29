@@ -28,12 +28,14 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 * 100kpj.com
 * Tvonenews.com
 * Bolasport.com
-
-Will not be implemented (yet):
+Implemented using merge-article method:
 * Jpnn.com
+
+To be implemented (merge-article method required):
 * Okezone.com
 * Mojok.co
 * Disway.id
+* Genpi.co
 
 No page split (for now):
 * Tempo.co
