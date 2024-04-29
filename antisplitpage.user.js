@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.7.1
+// @version      2.7.2
 // @description  Change split page mode to show all page
 // @author       gvoze32
 // @homepageURL  https://github.com/gvoze32/antisplitpage
@@ -24,6 +24,8 @@
 // @match        *://*.jagodangdut.com/*
 // @match        *://*.sahijab.com/*
 // @match        *://*.100kpj.com/*
+// @match        *://*.tvonenews.com/*
+// @match        *://*.bolasport.com/*
 // ==/UserScript==
 
 (function() {
@@ -47,7 +49,9 @@
       	{ host: 'jawapos', param: '?page=all', articleUrlPattern: /\/\d+\//},
       	{ host: 'jagodangdut', param: '?page=all', articleUrlPattern: /\/\w+\/\d+/},
       	{ host: 'sahijab', param: '?page=all', articleUrlPattern: /\/\w+\/\d+/},
-      	{ host: '100kpj', param: '?page=all', articleUrlPattern: /\/\w+\/\d+/}
+      	{ host: '100kpj', param: '?page=all', articleUrlPattern: /\/\w+\/\d+/},
+        { host: 'tvonenews', param: '?page=all', articleUrlPattern: /\/\w+\/\d+/},
+        { host: 'bolasport', param: '?page=all', articleUrlPattern: /\/read\/\d+/}
     ];
 
     const site = sites.find(site => urlName.includes(site.host) && site.articleUrlPattern.test(urlPathname));
