@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.7.4
+// @version      2.7.5
 // @description  Change split page mode to show all page
 // @author       gvoze32
 // @homepageURL  https://github.com/gvoze32/antisplitpage
@@ -29,6 +29,7 @@
 // @match        *://*.jpnn.com/*
 // @match        *://*.okezone.com/*
 // @match        *://*.mojok.co/*
+// @match        *://*.genpi.co/*
 // ==/UserScript==
 
 (function() {
@@ -73,23 +74,29 @@
     let mode = 1;
 
     if (urlName.includes('jpnn.com')) {
-        console.log('URL mengandung jpnn.com');
+        console.log('URL mengandung Jpnn.com');
         articleBodySelector = 'div[itemprop="articleBody"]';
         removeSelectors = '.baca-juga';
         removeElements = '.pagination'
         mode = 1;
     } else if (urlName.includes('okezone.com')) {
-        console.log('URL mengandung okezone.com');
+        console.log('URL mengandung Okezone.com');
         articleBodySelector = 'div[itemprop="articleBody"]';
         removeSelectors = '#bacajuga';
         removeElements = '#rctiplus, .box-gnews, .paging, .detads-bottom, .detail-tag, .video-wrap, .iframe-banner, p[style="font-weight:bold;text-align:center;"]'
         mode = 1;
     } else if (urlName.includes('mojok.co')) {
-        console.log('URL mengandung mojok.co');
+        console.log('URL mengandung Mojok.co');
         articleBodySelector = '.content-inner';
         removeSelectors = '.jnews_inline_related_post_wrapper, .jnews_inline_related_post, .jeg_post_tags, .post-modified-info, p:has(a[href*="/2"])';
         removeElements = '.jeg_pagelinks, .jeg_pagination, .jeg_pagenav_1, .jeg_alignleft, .no_navtext'
         mode = 2;
+    } else if (urlName.includes('genpi.co')) {
+        console.log('URL mengandung Genpi.co');
+        articleBodySelector = '.entry-content';
+        removeSelectors = '.baca-juga';
+        removeElements = '.pagination, .p.text-center:contains("Silakan baca konten menarik lainnya dari GenPI.co di Google News")'
+        mode = 1;
     } else {
         console.log('Situs tidak didukung');
     }
