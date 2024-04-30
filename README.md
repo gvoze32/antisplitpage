@@ -43,3 +43,7 @@ No page split (for now):
 * Cnnindonesia.com
 * Bisnis.com
 * Medcom.id
+* Beritasatu.com
+* Sindonews.com
+* Merdeka.com
+* Mediaindonesia.com
