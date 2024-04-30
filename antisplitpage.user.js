@@ -93,14 +93,8 @@
         mode = 2;
     } else if (urlName.includes('genpi.co')) {
         console.log('URL mengandung Genpi.co');
-        var allImages = $('img');
-        var articleImages = allImages.filter(function() {
-            return $(this).closest('div[itemprop="articleBody"]').length > 0;
-        });
-        articleImages.gt(0).remove();
-
         articleBodySelector = 'div[itemprop="articleBody';
-        removeSelectors = '.baca-juga', articleImages;
+        removeSelectors = '.baca-juga';
         removeElements = '.pagination, p.text-center[style="margin-top:-35px;font-size:small"]'
         mode = 1;
     } else {
