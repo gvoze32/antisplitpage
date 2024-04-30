@@ -33,10 +33,10 @@ Implemented using merge-article method:
 * Jpnn.com
 * Okezone.com
 * Mojok.co
-* Genpi.co
+* Genpi.co (Buggy)
 
 To be implemented (merge-article method required):
-* Disway.id
+* Disway.id (In Progress)
 
 No page split (for now):
 * Tempo.co
