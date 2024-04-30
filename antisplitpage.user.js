@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.7.5
+// @version      2.7.6
 // @description  Change split page mode to show all page
 // @author       gvoze32
 // @homepageURL  https://github.com/gvoze32/antisplitpage
 // @supportURL   https://github.com/gvoze32/antisplitpage/issues
 // @icon         https://cdn-icons-png.flaticon.com/512/6455/6455714.png
-// @require      https://code.jquery.com/jquery-3.6.0.min.js
+// @require      https://code.jquery.com/jquery-3.7.1.min.js
 // @grant        none
 // @match        *://*.tribunnews.com/*
 // @match        *://*.grid.id/*
