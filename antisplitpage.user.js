@@ -93,6 +93,10 @@
         mode = 2;
     } else if (urlName.includes('genpi.co')) {
         console.log('URL mengandung Genpi.co');
+        var entryThumbs = document.getElementsByClassName("entry-thumb");
+        for (var i = 1; i < entryThumbs.length; i++) {
+            entryThumbs[i].parentNode.removeChild(entryThumbs[i]);
+        }
         articleBodySelector = 'div[itemprop="articleBody';
         removeSelectors = '.baca-juga';
         removeElements = '.pagination, .p.text-center:contains("Silakan baca konten menarik lainnya dari GenPI.co di Google News")'
