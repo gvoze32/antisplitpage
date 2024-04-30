@@ -97,7 +97,11 @@
         removeSelectors = '.baca-juga';
         removeElements = '.pagination, p.text-center[style="margin-top:-35px;font-size:small"]'
         mode = 1;
-        $('div[itemprop="articleBody"] img:gt(0)').remove();
+        var allImages = $('img');
+        var articleImages = allImages.filter(function() {
+            return $(this).closest('div[itemprop="articleBody"]').length > 0;
+        });
+        articleImages.gt(0).remove();
     } else {
         console.log('Situs tidak didukung');
     }
