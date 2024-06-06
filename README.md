@@ -39,7 +39,7 @@ Implemented using merge-article method:
 To be implemented (merge-article method required):
 * Disway.id (In Progress)
 
-No page split (for now):
+### Safe sites (no page split):
 * Tempo.co
 * Cnnindonesia.com
 * Bisnis.com
@@ -48,3 +48,5 @@ No page split (for now):
 * Sindonews.com
 * Merdeka.com
 * Mediaindonesia.com
+* Katadata.co.id
+* Antaranews.com
