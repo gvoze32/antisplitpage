@@ -36,8 +36,9 @@ Implemented using merge-article method:
 * Mojok.co
 * Genpi.co (Buggy)
 
-To be implemented (merge-article method required):
-* Disway.id (In Progress)
+To be implemented:
+* Pikiran-rakyat.com
+* Disway.id (Merge-article method required)
 
 ### Safe sites (no page split):
 * Tempo.co
