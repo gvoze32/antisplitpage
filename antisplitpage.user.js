@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.8.0
+// @version      2.8.1
 // @description  Change split page mode to show all page
 // @author       gvoze32
 // @homepageURL  https://github.com/gvoze32/antisplitpage
@@ -40,9 +40,11 @@
 (function () {
   "use strict";
 
-  // USING METHOD 1
+  // --- Method 1: Redirect ---
   const urlName = window.location.href.toString();
   const urlPathname = window.location.pathname;
+  const urlSearch = window.location.search;
+  const urlParams = new URLSearchParams(urlSearch);
 
   const sites = [
     {
@@ -50,7 +52,8 @@
       param: "?page=all",
       articleUrlPattern: /\/\w+\/\d{4}\/\d{2}\/\d{2}/,
     },
-    { host: "grid", param: "?page=all", articleUrlPattern: /\/read\/\d{6}/ },
+    // Updated grid pattern to match /read/ followed by any number of digits
+    { host: "grid", param: "?page=all", articleUrlPattern: /\/read\/\d+/ },
     {
       host: "kompas",
       param: "?page=all",
@@ -107,23 +110,60 @@
       urlName.includes(site.host) && site.articleUrlPattern.test(urlPathname)
   );
 
-  if (
-    site &&
-    !urlName.includes(site.param) &&
-    !(site.param === "/" && urlPathname.endsWith("/"))
-  ) {
-    let desiredUrl;
-    if (site.param.startsWith("/") && urlPathname.endsWith("/")) {
-      desiredUrl = urlPathname.slice(0, -1) + site.param; // Remove trailing slash before adding param
-    } else if (!site.param.startsWith("?") && !urlPathname.endsWith("/")) {
-      desiredUrl = urlPathname + "/" + site.param.substring(1); // Handle cases like inews where param is /all but pathname might not end with /
-    } else {
-      desiredUrl = urlPathname + site.param;
+  // Refined check for Method 1 redirection
+  let shouldRedirect = false;
+  if (site) {
+    if (site.param.startsWith("?")) {
+      // Check query parameters
+      const paramKey = site.param.substring(1).split("=")[0];
+      const paramValue = site.param.substring(1).split("=")[1];
+      if (urlParams.get(paramKey) !== paramValue) {
+        shouldRedirect = true;
+      }
+    } else if (site.param.startsWith("/")) {
+      // Check if pathname ends with the parameter (like /all)
+      if (!urlPathname.endsWith(site.param)) {
+        // Avoid redirecting if the pathname already ends with a slash and param is just '/'
+        if (!(site.param === "/" && urlPathname.endsWith("/"))) {
+          shouldRedirect = true;
+        }
+      }
     }
-    window.location.assign(desiredUrl);
   }
 
-  // USING METHOD 2
+  if (shouldRedirect) {
+    let desiredUrl;
+    // Construct the target URL based on parameter type
+    if (site.param.startsWith("?")) {
+      const newParams = new URLSearchParams(urlSearch);
+      const paramKey = site.param.substring(1).split("=")[0];
+      const paramValue = site.param.substring(1).split("=")[1];
+      newParams.set(paramKey, paramValue);
+      // Keep existing hash if present
+      desiredUrl =
+        urlPathname + "?" + newParams.toString() + window.location.hash;
+    } else if (site.param.startsWith("/")) {
+      // Handle path-based parameters like /all
+      if (urlPathname.endsWith("/")) {
+        // Avoid double slash if pathname already ends with /
+        desiredUrl =
+          urlPathname.slice(0, -1) +
+          site.param +
+          urlSearch +
+          window.location.hash;
+      } else {
+        desiredUrl =
+          urlPathname + site.param + urlSearch + window.location.hash;
+      }
+    }
+
+    if (desiredUrl) {
+      console.log(`AntiSplitPage: Redirecting to ${desiredUrl}`);
+      window.location.assign(desiredUrl);
+    }
+  }
+
+  // --- Method 2: Merge Content ---
   let currentUrl = window.location.href;
   let articleBodySelector = "";
   let removeSelectors = "";
@@ -162,7 +202,7 @@
     console.log("URL mengandung Disway.id");
     articleBodySelector = "div.post.text-black-1";
     removeSelectors =
-      'h1.text-black, .post-info, .bottom-15 > img, .bottom-15 > p.text-grey, .ads-slot, p:has(strong > a[href*="disway.id/read"]), .text-center[style*="background-color:#f2f2f2"], p.bottom-15:has(small), .text-center > .row > .pagination, p:has(strong > a[href*="disway.id/read"])';
+      'h1.text-black, .post-info, .ads-slot, p:has(strong > a[href*="disway.id/read"]), .text-center[style*="background-color:#f2f2f2"], p.bottom-15:has(small), .text-center > .row > .pagination, p:has(strong > a[href*="disway.id/read"])';
     removeElements = ".text-center > .row > .pagination, .ads-slot";
     mode = 3;
   } else {
