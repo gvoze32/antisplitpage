@@ -38,7 +38,7 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 - Okezone.com
 - Mojok.co
 - Genpi.co (Buggy)
-- Disway.id
+- Disway.id (Buggy)
 
 # To be implemented:
 

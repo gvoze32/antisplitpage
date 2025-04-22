@@ -189,20 +189,20 @@
     removeElements =
       ".jeg_pagelinks, .jeg_pagination, .jeg_pagenav_1, .jeg_alignleft, .no_navtext";
     mode = 2;
-  } else if (urlName.includes("genpi.co")) {
-    console.log("AntiSplitPage: Matched genpi.co (Mode 1)");
-    articleBodySelector = 'div[itemprop="articleBody"]';
-    removeSelectors =
-      '.baca-juga, .pagination, p.text-center[style*="margin-top:-35px"]';
-    removeElements = '.pagination, p.text-center[style*="margin-top:-35px"]';
-    mode = 1;
-  } else if (urlName.includes("disway.id")) {
-    console.log("AntiSplitPage: Matched disway.id (Mode 3)");
-    articleBodySelector = "div.post.text-black-1";
-    removeSelectors =
-      '.ads-slot, p:has(strong > a[href*="disway.id/read"]), .text-center[style*="background-color:#f2f2f2"], .text-center > .row > .pagination';
-    removeElements = ".text-center > .row > .pagination, .ads-slot";
-    mode = 3;
+    // } else if (urlName.includes("genpi.co")) {
+    //   console.log("AntiSplitPage: Matched genpi.co (Mode 1)");
+    //   articleBodySelector = 'div[itemprop="articleBody"]';
+    //   removeSelectors =
+    //     '.baca-juga, .pagination, p.text-center[style*="margin-top:-35px"]';
+    //   removeElements = '.pagination, p.text-center[style*="margin-top:-35px"]';
+    //   mode = 1;
+    // } else if (urlName.includes("disway.id")) {
+    //   console.log("AntiSplitPage: Matched disway.id (Mode 3)");
+    //   articleBodySelector = "div.post.text-black-1";
+    //   removeSelectors =
+    //     '.ads-slot, p:has(strong > a[href*="disway.id/read"]), .text-center[style*="background-color:#f2f2f2"], .text-center > .row > .pagination';
+    //   removeElements = ".text-center > .row > .pagination, .ads-slot";
+    //   mode = 3;
   } else {
     mode = 0;
   }
