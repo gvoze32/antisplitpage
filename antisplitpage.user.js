@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      2.8.2
+// @version      2.8.3
 // @description  Change split page mode to show all page
 // @author       gvoze32
 // @homepageURL  https://github.com/gvoze32/antisplitpage
@@ -35,6 +35,7 @@
 // @match        *://*.suaramerdeka.com/*
 // @match        *://*.pikiran-rakyat.com/*
 // @match        *://*.disway.id/*
+// @match        *://*.idntimes.com/*
 // ==/UserScript==
 
 (function () {
@@ -101,6 +102,11 @@
       host: "pikiran-rakyat",
       param: "?page=all",
       articleUrlPattern: /\/pr-\d+/,
+    },
+    {
+      host: "idntimes",
+      param: "?page=all",
+      articleUrlPattern: /\/\w+\/\w+\/[-a-z0-9]+/,
     },
   ];
 

@@ -30,6 +30,7 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 - Bolasport.com
 - Suaramerdeka.com
 - Pikiran-rakyat.com
+- Idntimes.com
 
 # Implemented using merge-article method:
 
@@ -39,7 +40,9 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 - Genpi.co (Buggy)
 - Disway.id
 
-To be implemented:
+# To be implemented:
+
+-
 
 ### Safe sites (no page split):
 
