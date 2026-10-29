@@ -1,4 +1,4 @@
-Change split page mode to show all page.
+Show split (paginated) Indonesian news articles on a single page.
 
 ### Install
 
@@ -9,7 +9,14 @@ First you need to install either one of these user-script add-ons for your brows
 
 Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/antisplitpage.user.js) to show Install dialog.
 
+### How it works
+
+- **Redirect**: on sites with a built-in "show all" URL (e.g. `?page=all`), article pages are redirected to it before the page renders. The split URL is replaced in history, so Back still works.
+- **Merge**: on sites without one, every `?page=N` is fetched and the article bodies are joined in place. If any page fails to load, the article is left as-is.
+
 ### Supported Sites
+
+#### Redirect
 
 - Tribunnews.com
 - Grid.id
@@ -31,20 +38,28 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 - Suaramerdeka.com
 - Pikiran-rakyat.com
 - Idntimes.com
+- Okezone.com
+- Disway.id
+- Antaranews.com
+- Kompas.tv
+- Parapuan.co
+- Juara.net
+- Intipseleb.com
+- Idxchannel.com
+- Investor.id
+- Hops.id
+- Zonajakarta.com
+- Jatimnetwork.com
+- Indozone.id
+- Fajar.co.id
 
-# Implemented using merge-article method:
+#### Merge
 
 - Jpnn.com
-- Okezone.com
-- Mojok.co
-- Genpi.co (Buggy)
-- Disway.id (Buggy)
+- Genpi.co
+- Liputan6.com
 
-# To be implemented:
-
--
-
-### Safe sites (no page split):
+### Safe sites (no page split)
 
 - Tempo.co
 - Cnnindonesia.com
@@ -55,4 +70,22 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 - Merdeka.com
 - Mediaindonesia.com
 - Katadata.co.id
-- Antaranews.com
+- Mojok.co
+- Cnbcindonesia.com
+- Republika.co.id
+- Tirto.id
+- Voi.id
+- Kapanlagi.com
+- Bola.com
+- Bola.net
+- Fimela.com
+- Dream.co.id
+- Harianjogja.com
+- Popbela.com
+- Popmama.com
+- Akurat.co
+- Era.id
+- Rmol.id
+- Metrotvnews.com
+- Hipwee.com
+- Wartaekonomi.co.id
