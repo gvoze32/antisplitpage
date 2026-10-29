@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Anti Split Page
 // @namespace    gvoze32/antisplitpage
-// @version      3.1.0
+// @version      3.2.0
 // @description  Show split (paginated) Indonesian news articles on a single page
 // @author       gvoze32
 // @homepageURL  https://github.com/gvoze32/antisplitpage
@@ -49,6 +49,8 @@
 // @match        *://*.indozone.id/*
 // @match        *://*.fajar.co.id/*
 // @match        *://*.liputan6.com/*
+// @match        *://*.ayobandung.com/*
+// @match        *://*.jabarekspres.com/*
 // ==/UserScript==
 
 (() => {
@@ -114,16 +116,43 @@
     { host: "fajar.co.id", article: /^\/\d{4}\/\d{2}\/\d{2}\/[\w-]+/, to: PAGE_ALL },
     { host: "investor.id", article: ID_SLUG, to: pathSuffix("/all") },
     { host: "idxchannel.com", article: /^\/[\w-]+\/[\w-]+-[\w-]+(?:\/\d+)?\/?$/, to: pathSuffix("/all") },
+    { host: "ayobandung.com", article: ID_SLUG, to: PAGE_ALL },
   ];
 
   // ---------------------------------------------------------------------------
-  // Method 2: fetch every `?page=N` and merge the article bodies in place,
+  // Method 2: fetch every page and merge the article bodies in place,
   // for sites without a "show all" URL.
   //   body   - article container, replaced with the merged content
   //   strip  - removed from every fetched page body
   //   repeat - removed from every fetched page body except the first
   //   hide   - removed from the live page after merging
+  //   pager  - page URL scheme, defaults to "?page=N"
   // ---------------------------------------------------------------------------
+
+  // A pager maps a URL to { article, n } (`article` identifies the article
+  // regardless of page) and builds the URL of page n.
+  const QUERY_PAGER = {
+    parse: (url) => ({ article: url.origin + url.pathname, n: Number(url.searchParams.get("page")) || 1 }),
+    build(url, n) {
+      if (n === 1) url.searchParams.delete("page");
+      else url.searchParams.set("page", String(n));
+      return url;
+    },
+  };
+
+  // WordPress <!--nextpage-->: ".../slug/" is page 1, ".../slug/N/" is page N.
+  const PAGE_SEGMENT = /\/(\d+)\/?$/;
+  const articlePath = (path) => path.replace(PAGE_SEGMENT, "").replace(/\/?$/, "/");
+  const PATH_PAGER = {
+    parse: (url) => ({
+      article: url.origin + articlePath(url.pathname),
+      n: Number(url.pathname.match(PAGE_SEGMENT)?.[1]) || 1,
+    }),
+    build(url, n) {
+      url.pathname = articlePath(url.pathname) + (n === 1 ? "" : `${n}/`);
+      return url;
+    },
+  };
 
   const MERGE_SITES = [
     {
@@ -144,6 +173,13 @@
       body: ".article-content-body",
       strip: ".article-raw-content",
       hide: ".gatewayPagination, .article-paging-pagination, .read-page-box-pagination",
+    },
+    {
+      host: "jabarekspres.com",
+      body: ".entry-content",
+      strip: ".read-also",
+      hide: ".post-nav-links",
+      pager: PATH_PAGER,
     },
   ];
 
@@ -181,24 +217,20 @@
     location.replace(target.href);
   }
 
-  function pageCount() {
-    const here = new URL(location.href);
-    let max = Number(here.searchParams.get("page")) || 1;
+  function pageCount(pager) {
+    const here = pager.parse(new URL(location.href));
+    let max = here.n;
     for (const a of document.querySelectorAll("a[href]")) {
-      const url = new URL(a.href, here);
-      if (url.origin !== here.origin || url.pathname !== here.pathname) continue;
-      const n = Number(url.searchParams.get("page"));
-      if (Number.isInteger(n) && n > max) max = n;
+      const { article, n } = pager.parse(new URL(a.href, location.href));
+      if (article === here.article && Number.isInteger(n) && n > max) max = n;
     }
     return Math.min(max, MAX_PAGES);
   }
 
-  function pageUrl(n) {
+  function pageUrl(pager, n) {
     const url = new URL(location.href);
     url.hash = "";
-    if (n === 1) url.searchParams.delete("page");
-    else url.searchParams.set("page", String(n));
-    return url.href;
+    return pager.build(url, n).href;
   }
 
   async function fetchBody(site, url, isFirst) {
@@ -215,10 +247,11 @@
   async function merge(site) {
     const live = document.querySelector(site.body);
     if (!live) return;
-    const count = pageCount();
+    const pager = site.pager ?? QUERY_PAGER;
+    const count = pageCount(pager);
     if (count < 2) return;
 
-    const urls = Array.from({ length: count }, (_, i) => pageUrl(i + 1));
+    const urls = Array.from({ length: count }, (_, i) => pageUrl(pager, i + 1));
     console.log(TAG, `merging ${count} pages`, urls);
     // Any failed page aborts the merge: a partial article with its pagination
     // removed would silently hide content.

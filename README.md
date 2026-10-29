@@ -12,7 +12,7 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 ### How it works
 
 - **Redirect**: on sites with a built-in "show all" URL (e.g. `?page=all`), article pages are redirected to it before the page renders. The split URL is replaced in history, so Back still works.
-- **Merge**: on sites without one, every `?page=N` is fetched and the article bodies are joined in place. If any page fails to load, the article is left as-is.
+- **Merge**: on sites without one, every page (`?page=N` or WordPress-style `/N/`) is fetched and the article bodies are joined in place. If any page fails to load, the article is left as-is.
 
 ### Supported Sites
 
@@ -52,12 +52,14 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 - Jatimnetwork.com
 - Indozone.id
 - Fajar.co.id
+- Ayobandung.com
 
 #### Merge
 
 - Jpnn.com
 - Genpi.co
 - Liputan6.com
+- Jabarekspres.com
 
 ### Safe sites (no page split)
 
@@ -89,3 +91,4 @@ Then open [this](https://raw.githubusercontent.com/gvoze32/antisplitpage/master/
 - Metrotvnews.com
 - Hipwee.com
 - Wartaekonomi.co.id
+- Inilah.com
