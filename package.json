@@ -1,0 +1,14 @@
+{
+  "name": "antisplitpage",
+  "version": "4.0.0",
+  "description": "Show split (paginated) news articles on a single page",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check && node --test"
+  }
+}
